@@ -1,0 +1,19 @@
+{
+  "name": "practica-tareas",
+  "version": "0.0.1",
+  "description": "Programa que lista las tareas CRUD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lista"
+  ],
+  "author": "Amanda Sabino",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^8.0.0",
+    "uuid": "^9.0.0"
+  }
+}
