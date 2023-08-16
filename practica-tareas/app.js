@@ -1,9 +1,11 @@
 // const {mostrarMenu, pausa} =require ('./helpers/mensajes');
-const {inquirerMenu, pausa} = require('./helpers/inquire');
-const Tarea = require('./models/Tarea');
+const {inquirerMenu, pausa, leerInput} = require('./helpers/inquire');
+const {guradaDB} = require('./helpers/guardarArchivo');
+const Tareas = require('./models/Tareas');
+
 const main = async() =>{
     let opt = '';
-   
+    const tareas = new Tareas();
     do{
         // console.clear();
         // opt = await mostrarMenu();
@@ -15,21 +17,32 @@ const main = async() =>{
         switch(opt){
             case '1':
                 //Crear Lista
-                const tarea = new Tarea('Crear un repo');
-                console.log(tarea);
+                const desc = await leerInput();
+                
+                tareas.crearTarea(desc);
             break;
             case '2':
+                //Listar
+                console.log(tareas.getListadoArr);
+                
             break;
             case '3':
+                //tareas.listadoCompleto();
+                //Listar compleatdos
+                tareas.listarPendientesCompletados(true);
             break;
             case '4':
+                //Listar pendientes
+                tareas.listarPendientesCompletados(false);
             break;
             case '5':
+
             break;
             case '6':
             break;
         }
 
+        guradaDB(tareas.getListadoArr);
         await pausa();
 
     }while(opt !== '0')
