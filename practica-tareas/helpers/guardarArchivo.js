@@ -16,9 +16,11 @@ const leerDB = () =>{
     const inf = fs.readFileSync(archivo, { encoding: 'utf-8'});
     const data = JSON.parse(inf);
 
+
     return data;
 }
 
 module.exports = {
-    guradaDB
+    guradaDB,
+    leerDB
 }

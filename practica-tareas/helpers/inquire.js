@@ -91,9 +91,89 @@ const leerInput = async() =>{
 }
 
 
+const listadoTareasBorrar = async(tareas = []) =>{
+
+    const choices = tareas.map((tarea , i) =>{
+        const idx = `${ i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${idx} ${tarea.desc}`
+        }
+    });
+
+    /**
+     * 
+     */
+    choices.unshift({
+        value:'0',
+        name: '0.'.green + 'Cancelar'
+    });
+
+    const preguntas = [
+        {
+            type: 'list',
+            name: 'id', //Este es el nombre que se asigna para desestructurar
+            message: 'Borrar',
+            // choices: ['Crear Tarea','Listar','Borrar']
+            choices
+        }
+    ];
+
+    const { id } = await inquirer.prompt(preguntas);
+    return id;
+
+}
+
+
+const confirmar = async() =>{
+    const question = [
+        {
+            type:'confirm',
+            name:'ok',
+            message:'¿Estas seguro?'
+        }
+    ];
+
+    const { ok } = await inquirer.prompt(question);
+
+    return ok;
+}
+
+
+const mostrarListadoChecklist = async(tareas = []) => {
+
+    const choices = tareas.map((tarea , i) =>{
+        const idx = `${ i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${idx} ${tarea.desc}`,
+            checked: (tarea.completadoEn) ? true :false
+        }
+    });
+
+    const preguntas = [
+        {
+            type: 'checkbox',
+            name: 'ids', //Este es el nombre que se asigna para desestructurar
+            message: 'Selecciona',
+            // choices: ['Crear Tarea','Listar','Borrar']
+            choices
+        }
+    ];
+
+    const { ids } = await inquirer.prompt(preguntas);
+    return ids;
+
+}
+
 
 module.exports = {
     inquirerMenu,
     pausa,
-    leerInput
+    leerInput,
+    listadoTareasBorrar,
+    confirmar,
+    mostrarListadoChecklist
 }
